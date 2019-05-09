@@ -1,0 +1,32 @@
+CC=cl.exe
+CFLAGS=/I. /IGetopt-for-Visual-Studio /Wall /pedantic /EHSC /MD /Zi
+LDFLAGS=
+LD=link.exe
+
+EXECUTABLE = barmaid.exe
+
+ZLIB_VER = zlib-1.2.8
+CFLAGS = $(CFLAGS) -I$(ZLIB_VER)
+CSRC = $(CSRC) \
+        $(ZLIB_VER)/inflate.c $(ZLIB_VER)/zutil.c $(ZLIB_VER)/adler32.c \
+        $(ZLIB_VER)/crc32.c $(ZLIB_VER)/inffast.c $(ZLIB_VER)/inftrees.c
+
+
+CSRC = $(CSRC) barmaid.c barflate.c
+COBJ = $(COBJ) \
+        barmaid.obj barflate.obj \
+        inflate.obj zutil.obj adler32.obj \
+        crc32.obj inffast.obj inftrees.obj
+
+all: $(EXECUTABLE) 
+
+$(COBJ) : $(CSRC)
+	@echo COMPILING: $**
+	$(CC) /c $(CFLAGS) $**
+
+$(EXECUTABLE):  $(COBJ)
+	@echo LINKING: $@
+	$(LD) $(COBJ) $(LDFLAGS) /OUT:$@
+
+clean:
+        DEL /Q *.obj *.pdb *.exe

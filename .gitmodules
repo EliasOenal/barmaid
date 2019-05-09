@@ -1,0 +1,4 @@
+[submodule "Getopt-for-Visual-Studio"]
+	path = Getopt-for-Visual-Studio
+	url = https://github.com/skandhurkat/Getopt-for-Visual-Studio
+	branch = master
