@@ -8,6 +8,8 @@
 *.so
 bin-*
 build
+*.obj
+*.pdb
 
 # Packages #
 ############
